@@ -1,0 +1,15 @@
+[Unit]
+Description=Camera Privacy Service
+After=network-online.target network.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/root/cam-privacy.py
+Type=simple
+# RemainAfterExit=yes
+Restart=always
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
