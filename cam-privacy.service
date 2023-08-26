@@ -4,7 +4,7 @@ After=network-online.target network.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/root/cam-privacy.py
+ExecStart=/usr/bin/python3 /root/cam-privacy/cam-privacy.py
 Type=simple
 # RemainAfterExit=yes
 Restart=always
