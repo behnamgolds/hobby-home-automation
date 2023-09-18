@@ -109,7 +109,8 @@ def ros_log_connection_failure():
 def dvr_activate_alarm():
     with open(DVR_ACTIVATION_PAYLOAD) as payload:
         try:
-            requests.put(DVR_TRIGGER_URL, headers=DVR_HEADERS, auth=DVR_AUTH, data=payload, timeout=3)
+            res = requests.put(DVR_TRIGGER_URL, headers=DVR_HEADERS, auth=DVR_AUTH, data=payload, timeout=3)
+            res.close()
         except:
             dvr_log_connection_failure()
         finally:
@@ -119,7 +120,8 @@ def dvr_activate_alarm():
 def dvr_deactivate_alarm():
     with open(DVR_DEACTIVATION_PAYLOAD) as payload:
         try:
-            requests.put(DVR_TRIGGER_URL, headers=DVR_HEADERS, auth=DVR_AUTH, data=payload, timeout=3)
+            res = requests.put(DVR_TRIGGER_URL, headers=DVR_HEADERS, auth=DVR_AUTH, data=payload, timeout=3)
+            res.close()
         except:
             dvr_log_connection_failure()
         finally:
@@ -130,6 +132,7 @@ def dvr_get_alarm_status():
     try:
         res = requests.get(DVR_STATUS_URL, auth=DVR_AUTH, timeout=3)
         xml_dict = xmltodict.parse(res.text)
+        res.close()
         return xml_dict["IOPortStatus"]["ioState"]
     except:
         dvr_log_connection_failure()
